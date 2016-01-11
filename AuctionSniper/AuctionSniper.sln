@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSniper", "AuctionSniper.csproj", "{C65D0523-5793-423E-BF92-A3B2A3EC735F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSniperDLL", "..\..\..\..\..\..\git\DASService\AuctionSniperDLL\AuctionSniperDLL\AuctionSniperDLL.csproj", "{99972A52-4922-4DC6-A51C-3302B493E807}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LunchboxSource", "..\..\LunchboxCode\LunchboxSource\LunchboxSource.csproj", "{FCC886E4-1728-43C6-ACE7-22831C08CB26}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Debug|x86.ActiveCfg = Debug|x86
+		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Debug|x86.Build.0 = Debug|x86
+		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Release|Mixed Platforms.Build.0 = Release|x86
+		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Release|x86.ActiveCfg = Release|x86
+		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Release|x86.Build.0 = Release|x86
+		{99972A52-4922-4DC6-A51C-3302B493E807}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99972A52-4922-4DC6-A51C-3302B493E807}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99972A52-4922-4DC6-A51C-3302B493E807}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{99972A52-4922-4DC6-A51C-3302B493E807}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{99972A52-4922-4DC6-A51C-3302B493E807}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{99972A52-4922-4DC6-A51C-3302B493E807}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99972A52-4922-4DC6-A51C-3302B493E807}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99972A52-4922-4DC6-A51C-3302B493E807}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{99972A52-4922-4DC6-A51C-3302B493E807}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{99972A52-4922-4DC6-A51C-3302B493E807}.Release|x86.ActiveCfg = Release|Any CPU
+		{FCC886E4-1728-43C6-ACE7-22831C08CB26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCC886E4-1728-43C6-ACE7-22831C08CB26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCC886E4-1728-43C6-ACE7-22831C08CB26}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{FCC886E4-1728-43C6-ACE7-22831C08CB26}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{FCC886E4-1728-43C6-ACE7-22831C08CB26}.Debug|x86.ActiveCfg = Debug|x86
+		{FCC886E4-1728-43C6-ACE7-22831C08CB26}.Debug|x86.Build.0 = Debug|x86
+		{FCC886E4-1728-43C6-ACE7-22831C08CB26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCC886E4-1728-43C6-ACE7-22831C08CB26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCC886E4-1728-43C6-ACE7-22831C08CB26}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{FCC886E4-1728-43C6-ACE7-22831C08CB26}.Release|Mixed Platforms.Build.0 = Release|x86
+		{FCC886E4-1728-43C6-ACE7-22831C08CB26}.Release|x86.ActiveCfg = Release|x86
+		{FCC886E4-1728-43C6-ACE7-22831C08CB26}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="url" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="url" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="url">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="LoginRequest">
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="software" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="LoginResponse">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="LoginWPRequest">
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="LoginWPResponse">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="EmailRequest">
+    <wsdl:part name="to" type="xsd:string" />
+    <wsdl:part name="title" type="xsd:string" />
+    <wsdl:part name="content" type="xsd:string" />
+    <wsdl:part name="from" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="EmailResponse">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="ReportBugRequest">
+    <wsdl:part name="software" type="xsd:string" />
+    <wsdl:part name="error" type="xsd:string" />
+    <wsdl:part name="user" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="ReportBugResponse">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:portType name="LunchboxCode APIPortType">
+    <wsdl:operation name="Login">
+      <wsdl:input message="tns:LoginRequest" />
+      <wsdl:output message="tns:LoginResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="LoginWP">
+      <wsdl:input message="tns:LoginWPRequest" />
+      <wsdl:output message="tns:LoginWPResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="Email">
+      <wsdl:input message="tns:EmailRequest" />
+      <wsdl:output message="tns:EmailResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportBug">
+      <wsdl:input message="tns:ReportBugRequest" />
+      <wsdl:output message="tns:ReportBugResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="LunchboxCode APIBinding" type="tns:LunchboxCode APIPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://lunchboxcode.com/service/php/service.php/Login" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LoginWP">
+      <soap:operation soapAction="http://lunchboxcode.com/service/php/service.php/LoginWP" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Email">
+      <soap:operation soapAction="http://lunchboxcode.com/service/php/service.php/Email" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReportBug">
+      <soap:operation soapAction="http://lunchboxcode.com/service/php/service.php/ReportBug" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LunchboxCode API">
+    <wsdl:port name="LunchboxCode APIPort" binding="tns:LunchboxCode APIBinding">
+      <soap:address location="http://lunchboxcode.com/service/php/service.php" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
