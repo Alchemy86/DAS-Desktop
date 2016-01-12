@@ -1,9 +1,12 @@
-﻿using AuctionSniper.Business.Encryption;
+﻿using System;
+using AuctionSniper.Business.Encryption;
 using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using DAS.Domain;
 using DAS.Domain.GoDaddy;
+using DAS.Domain.GoDaddy.Users;
+using DAS.Domain.Users;
 using GoDaddy;
 
 namespace AuctionSniper.Business
@@ -18,6 +21,8 @@ namespace AuctionSniper.Business
         private SortableBindingList<Auction> myAuctions = new SortableBindingList<Auction>();
         private List<string> Areas = new List<string>();
         private Auction selectedAuction = new Auction();
+        private IUserRepository UserRepository;
+
         //055253075052187226128207233220040152152032035046195202074078254081075028076127031045172195038169141118199243064212129091192167107176166003254184236133056033107091155065009100204161181134040023198005237180084216208250147177192109190224003224176006155200168216249015086108126048252004135184
         public AppSettings()
         {
@@ -92,6 +97,10 @@ namespace AuctionSniper.Business
                 ("US_States", ref this.Areas, ref value);
             }
         }
+
+        public User LiveUserAccount { get; set; }
+
+        public GoDaddySessionModel SessionDetails { get; set; }
 
         public bool TestMode
         {

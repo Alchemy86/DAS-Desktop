@@ -91,17 +91,23 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ASEntityFramework">
-      <HintPath>..\..\..\..\..\..\git\DASService\AuctionSniperDLL\AuctionSniperDLL\bin\Debug\ASEntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="AuctionSniperDLL">
       <HintPath>..\..\DASService\AuctionSniperDLL\AuctionSniperDLL\bin\Release\AuctionSniperDLL.dll</HintPath>
     </Reference>
-    <Reference Include="Fizzler">
-      <HintPath>..\..\..\DLL\Newest Fizzler\Fizzler.dll</HintPath>
+    <Reference Include="Fizzler, Version=0.1.15619.0, Culture=neutral, PublicKeyToken=4ebff4844e382110, processorArchitecture=MSIL">
+      <HintPath>..\AuctionSniperDesktop\packages\Fizzler.1.0.0\lib\net35\Fizzler.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\..\DLL\Newest Fizzler\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="Fizzler.Systems.HtmlAgilityPack, Version=0.1.15619.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\AuctionSniperDesktop\packages\Fizzler.Systems.HtmlAgilityPack.1.0.0\lib\net35\Fizzler.Systems.HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\AuctionSniperDesktop\packages\HtmlAgilityPack.1.4.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LunchboxSource">
+      <HintPath>..\..\DASService\AuctionSniperDLL\AuctionSniperDLL\bin\Release\LunchboxSource.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data, Version=6.9.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -112,6 +118,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web" />
@@ -126,7 +133,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bindings.cs" />
     <Compile Include="Business\AppSettings.cs" />
     <Compile Include="Business\ConvertToAuction.cs" />
     <Compile Include="Business\DataAccess\DBHelper.cs" />
@@ -142,7 +148,6 @@
     <Compile Include="Business\ManagedObject.cs" />
     <Compile Include="Business\Obj\Site.cs" />
     <Compile Include="Business\Obj\VpnFactory.cs" />
-    <Compile Include="Business\Sites\GoDaddyAuctions.cs" />
     <Compile Include="Business\Sites\Paypal.cs" />
     <Compile Include="Business\UI\SplashScreen\SplashScreen.cs" />
     <Compile Include="Business\UI\SplashScreen\SplashScreenForm.cs">
@@ -158,7 +163,6 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="GoDaddy\User\UserRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Error.cs">
@@ -306,6 +310,21 @@
       <Project>{fcb65216-825d-4c9b-8308-ae36debfdc38}</Project>
       <Name>Lunchboxweb</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AuctionSniperDesktop\AuctionSniper.DAL\AuctionSniper.DAL.csproj">
+      <Project>{fcb59b8c-585f-454a-b667-addf0b5d41ae}</Project>
+      <Name>AuctionSniper.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AuctionSniperDesktop\AuctionSniper.Dependency\AuctionSniper.Dependency.csproj">
+      <Project>{C5B185DC-6E26-4B70-860A-1F9CF8E77089}</Project>
+      <Name>AuctionSniper.Dependency</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AuctionSniperDesktop\AuctionSniper.Domain\AuctionSniper.Domain.csproj">
+      <Project>{9EE900B3-331D-429F-AC91-F32D2F195892}</Project>
+      <Name>AuctionSniper.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GoDaddy\User\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

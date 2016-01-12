@@ -51,15 +51,6 @@
             this.btnDetails = new System.Windows.Forms.ToolStripButton();
             this.btnMyAuctions = new System.Windows.Forms.ToolStripButton();
             this.btnSettings = new System.Windows.Forms.ToolStripButton();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timerWB = new System.Windows.Forms.Timer(this.components);
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.timerBids = new System.Windows.Forms.Timer(this.components);
-            this.toolStrip4 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel6 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.txtVersion = new System.Windows.Forms.ToolStripLabel();
             this.tablessControl1 = new TablessControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tablessControl2 = new TablessControl();
@@ -103,6 +94,15 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timerWB = new System.Windows.Forms.Timer(this.components);
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.timerBids = new System.Windows.Forms.Timer(this.components);
+            this.toolStrip4 = new System.Windows.Forms.ToolStrip();
+            this.toolStripLabel6 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.txtVersion = new System.Windows.Forms.ToolStripLabel();
             this.appSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -123,7 +123,6 @@
             this.splitContainer4.SuspendLayout();
             this.toolStrip3.SuspendLayout();
             this.toolStrip1.SuspendLayout();
-            this.toolStrip4.SuspendLayout();
             this.tablessControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tablessControl2.SuspendLayout();
@@ -136,6 +135,7 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeDifference)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.toolStrip4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.appSettingsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -376,72 +376,6 @@
             this.btnSettings.Size = new System.Drawing.Size(23, 22);
             this.btnSettings.Text = "Settings";
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // timerWB
-            // 
-            this.timerWB.Interval = 1000;
-            this.timerWB.Tick += new System.EventHandler(this.timerWB_Tick);
-            // 
-            // timerBids
-            // 
-            this.timerBids.Enabled = true;
-            this.timerBids.Interval = 10000;
-            this.timerBids.Tick += new System.EventHandler(this.timerBids_Tick);
-            // 
-            // toolStrip4
-            // 
-            this.toolStrip4.AutoSize = false;
-            this.toolStrip4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.toolStrip4.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel6,
-            this.toolStripLabel4,
-            this.toolStripButton1,
-            this.txtVersion});
-            this.toolStrip4.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip4.Name = "toolStrip4";
-            this.toolStrip4.Size = new System.Drawing.Size(813, 50);
-            this.toolStrip4.Stretch = true;
-            this.toolStrip4.TabIndex = 1;
-            // 
-            // toolStripLabel6
-            // 
-            this.toolStripLabel6.AutoSize = false;
-            this.toolStripLabel6.BackgroundImage = global::AuctionSniper.Properties.Resources.GreenDot_small___Copy1;
-            this.toolStripLabel6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.toolStripLabel6.Name = "toolStripLabel6";
-            this.toolStripLabel6.Size = new System.Drawing.Size(45, 47);
-            // 
-            // toolStripLabel4
-            // 
-            this.toolStripLabel4.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.toolStripLabel4.ForeColor = System.Drawing.Color.White;
-            this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(206, 47);
-            this.toolStripLabel4.Text = "Auction Sniper";
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripButton1.ForeColor = System.Drawing.Color.White;
-            this.toolStripButton1.Image = global::AuctionSniper.Properties.Resources.help;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(52, 47);
-            this.toolStripButton1.Text = "Help";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
-            // txtVersion
-            // 
-            this.txtVersion.ForeColor = System.Drawing.Color.White;
-            this.txtVersion.Name = "txtVersion";
-            this.txtVersion.Size = new System.Drawing.Size(46, 47);
-            this.txtVersion.Text = "Version";
-            this.txtVersion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // tablessControl1
             // 
@@ -886,22 +820,18 @@
             // 
             // tbPassword
             // 
-            this.tbPassword.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AuctionSniper.Properties.Settings.Default, "Password", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.tbPassword.Location = new System.Drawing.Point(85, 104);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.PasswordChar = '*';
             this.tbPassword.Size = new System.Drawing.Size(150, 20);
             this.tbPassword.TabIndex = 4;
-            this.tbPassword.Text = global::AuctionSniper.Properties.Settings.Default.Password;
             // 
             // tbUsername
             // 
-            this.tbUsername.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AuctionSniper.Properties.Settings.Default, "Username", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.tbUsername.Location = new System.Drawing.Point(85, 78);
             this.tbUsername.Name = "tbUsername";
             this.tbUsername.Size = new System.Drawing.Size(120, 20);
             this.tbUsername.TabIndex = 3;
-            this.tbUsername.Text = global::AuctionSniper.Properties.Settings.Default.Username;
             // 
             // label10
             // 
@@ -942,6 +872,72 @@
             this.numericUpDown1.TabIndex = 0;
             this.numericUpDown1.Value = global::AuctionSniper.Properties.Settings.Default.BidTime;
             this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // timerWB
+            // 
+            this.timerWB.Interval = 1000;
+            this.timerWB.Tick += new System.EventHandler(this.timerWB_Tick);
+            // 
+            // timerBids
+            // 
+            this.timerBids.Enabled = true;
+            this.timerBids.Interval = 10000;
+            this.timerBids.Tick += new System.EventHandler(this.timerBids_Tick);
+            // 
+            // toolStrip4
+            // 
+            this.toolStrip4.AutoSize = false;
+            this.toolStrip4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.toolStrip4.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStrip4.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel6,
+            this.toolStripLabel4,
+            this.toolStripButton1,
+            this.txtVersion});
+            this.toolStrip4.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip4.Name = "toolStrip4";
+            this.toolStrip4.Size = new System.Drawing.Size(813, 50);
+            this.toolStrip4.Stretch = true;
+            this.toolStrip4.TabIndex = 1;
+            // 
+            // toolStripLabel6
+            // 
+            this.toolStripLabel6.AutoSize = false;
+            this.toolStripLabel6.BackgroundImage = global::AuctionSniper.Properties.Resources.GreenDot_small___Copy1;
+            this.toolStripLabel6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.toolStripLabel6.Name = "toolStripLabel6";
+            this.toolStripLabel6.Size = new System.Drawing.Size(45, 47);
+            // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
+            this.toolStripLabel4.ForeColor = System.Drawing.Color.White;
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(206, 47);
+            this.toolStripLabel4.Text = "Auction Sniper";
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripButton1.ForeColor = System.Drawing.Color.White;
+            this.toolStripButton1.Image = global::AuctionSniper.Properties.Resources.help;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(52, 47);
+            this.toolStripButton1.Text = "Help";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
+            // txtVersion
+            // 
+            this.txtVersion.ForeColor = System.Drawing.Color.White;
+            this.txtVersion.Name = "txtVersion";
+            this.txtVersion.Size = new System.Drawing.Size(45, 47);
+            this.txtVersion.Text = "Version";
+            this.txtVersion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // appSettingsBindingSource
             // 
@@ -990,8 +986,6 @@
             this.toolStrip3.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.toolStrip4.ResumeLayout(false);
-            this.toolStrip4.PerformLayout();
             this.tablessControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tablessControl2.ResumeLayout(false);
@@ -1007,6 +1001,8 @@
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudTimeDifference)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.toolStrip4.ResumeLayout(false);
+            this.toolStrip4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.appSettingsBindingSource)).EndInit();
             this.ResumeLayout(false);
 

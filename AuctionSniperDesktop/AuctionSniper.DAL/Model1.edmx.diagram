@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cfee2809687d464a9dcf3f12f59a2ad8" Name="Diagram1">
+        <EntityTypeShape EntityType="Database1Model.Auctions" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.GoDaddyAccount" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.SystemConfig" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Users" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="Database1Model.FK_Auctions_GoDaddyAccount" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK_GoDaddyAccount_Users" />
+        <EntityTypeShape EntityType="Database1Model.AuctionHistory" Width="1.5" PointX="5.375" PointY="5.75" />
+        <AssociationConnector Association="Database1Model.FK_AuctionHistory_Auction" />
+        <EntityTypeShape EntityType="Database1Model.Alerts" Width="1.5" PointX="5.25" PointY="9" />
+        <AssociationConnector Association="Database1Model.FK_dbo_Alerts_dbo_Auctions_AuctionID" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

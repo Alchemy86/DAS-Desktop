@@ -4,6 +4,7 @@ using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Windows.Forms;
 using AuctionSniper.Business.DataAccess;
+using AuctionSniper.Domain;
 using AuctionSniper.UI;
 using Ninject;
 
@@ -31,13 +32,12 @@ namespace AuctionSniper
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                UI.Login tmpStart = new UI.Login();
                 IKernel kernel = new StandardKernel(new Bindings());
+                UI.Login tmpStart = kernel.Get<Login>();
                 //kernel.Load(Assembly.GetExecutingAssembly());
-                Application.Run(kernel.Get<Form1>());
                 if (tmpStart.ShowDialog() == DialogResult.OK)
                 {
-                    Application.Run(new Form1());
+                    Application.Run(kernel.Get<Form1>());
                 }
             }
             catch (Exception e)

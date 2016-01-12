@@ -8,11 +8,16 @@ using AuctionSniper.Business;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
-using DAL;
+using AuctionSniper.DAL.Repository;
+using AuctionSniper.Domain.Godaddy;
 using DAS.Domain;
 using DAS.Domain.GoDaddy;
+using DAS.Domain.GoDaddy.Users;
+using DAS.Domain.Users;
 using GoDaddy;
+using LunchboxSource.Business.UI;
 using Lunchboxweb.BaseFunctions;
+using Ninject;
 
 namespace AuctionSniper
 {
@@ -20,8 +25,12 @@ namespace AuctionSniper
     {
         BindingSource bs = new BindingSource();
         public static Form1 Instance;
+        public IKernel Kernel;
+        public ISystemRepository SystemRepository;
+        public IUserRepository UserRepository;
+        public IUserDesktopRepository UserDesktopRepository;
 
-        public Form1()
+        public Form1(IKernel kernel)
         {
             #region Splash screen Start
             //this.Hide();
@@ -31,7 +40,18 @@ namespace AuctionSniper
             //splashthread.Start();
 
             #endregion
+
+            Kernel = kernel;
+            UserRepository = Kernel.Get<UserRepository>();
+            SystemRepository = Kernel.Get<SystemRepository>();
+            UserDesktopRepository = Kernel.Get<UserDesktopRepository>();
+
             InitializeComponent();
+            AppSettings.Instance.SessionDetails =
+                UserRepository.GetSessionDetails(AppSettings.Instance.LiveUserAccount.Username);
+
+            AppSettings.Instance.GoDaddy = new GoDaddyAuctionSniper(AppSettings.Instance.SessionDetails.Username, Kernel.Get<IUserRepository>());
+
             LoadAuctions();
             Instance = this;
             //Login();
@@ -60,14 +80,7 @@ namespace AuctionSniper
 
         private SortableBindingList<Auction> LoadMyLocalBids()
         {
-            var path = Path.Combine(Path.GetTempPath(), "MyBids.as");
-            var savedLocalBids = new SortableBindingList<Auction>();
-            if (File.Exists(path))
-            {
-                savedLocalBids = XMLSerializer.Deserialize<Auction>(path);
-            }
-
-            return savedLocalBids;
+            return UserDesktopRepository.LoadMyAuctions();
         }
 
         private void LoadMyBids()
@@ -83,11 +96,12 @@ namespace AuctionSniper
             var th = new Thread(() =>
             {
                 UpdateProgress("Login required...");
-                if (string.IsNullOrEmpty(Settings.Default.Username) ||
-                    string.IsNullOrEmpty(Settings.Default.Password)) return;
-                AppSettings.Instance.GoDaddy = new GoDaddyAuctionSniper(Settings.Default.Username, Settings.Default.Password);
+                if (AppSettings.Instance.SessionDetails.GoDaddyAccount == null)
+                {
+                    return;
+                }
                 UpdateProgress("Logging in...");
-                if (true)
+                if (AppSettings.Instance.GoDaddy.Login())
                 {
                     Invoke(new MethodInvoker(delegate
                     {
@@ -161,17 +175,17 @@ namespace AuctionSniper
             lblTime.DataBindings.Add("Text", bs, "CurrentAuction.EndDate", false,
                   DataSourceUpdateMode.OnPropertyChanged);
 
-            lblDomainName.DataBindings.Add("Text", bs, "CurrentAuction.Domain", false,
+            lblDomainName.DataBindings.Add("Text", bs, "CurrentAuction.DomainName", false,
                   DataSourceUpdateMode.OnPropertyChanged);
 
-            lblBids.DataBindings.Add("Text", bs, "CurrentAuction.Bids", false,
-                  DataSourceUpdateMode.OnPropertyChanged);
+            //lblBids.DataBindings.Add("Text", bs, "CurrentAuction.Bids", false,
+            //      DataSourceUpdateMode.OnPropertyChanged);
 
-            lblTraffic.DataBindings.Add("Text", bs, "CurrentAuction.Traffic", false,
-                  DataSourceUpdateMode.OnPropertyChanged);
+            //lblTraffic.DataBindings.Add("Text", bs, "CurrentAuction.Traffic", false,
+            //      DataSourceUpdateMode.OnPropertyChanged);
 
-            lblValuation.DataBindings.Add("Text", bs, "CurrentAuction.Valuation", false,
-                  DataSourceUpdateMode.OnPropertyChanged);
+            //lblValuation.DataBindings.Add("Text", bs, "CurrentAuction.Valuation", false,
+            //      DataSourceUpdateMode.OnPropertyChanged);
 
             lblMinBid.DataBindings.Add("Text", bs, "CurrentAuction.MinBid", false,
                   DataSourceUpdateMode.OnPropertyChanged);
@@ -179,14 +193,14 @@ namespace AuctionSniper
             tbBidValue.DataBindings.Add("Text", bs, "CurrentAuction.MyBid", false,
                   DataSourceUpdateMode.OnPropertyChanged);
 
-            lblMinOffer.DataBindings.Add("Text", bs, "CurrentAuction.MinOffer", false,
-                  DataSourceUpdateMode.OnPropertyChanged);
+            //lblMinOffer.DataBindings.Add("Text", bs, "CurrentAuction.MinOffer", false,
+            //      DataSourceUpdateMode.OnPropertyChanged);
 
-            lblPrice.DataBindings.Add("Text", bs, "CurrentAuction.Price", false,
-                  DataSourceUpdateMode.OnPropertyChanged);
+            //lblPrice.DataBindings.Add("Text", bs, "CurrentAuction.Price", false,
+            //      DataSourceUpdateMode.OnPropertyChanged);
 
-            lblBIN.DataBindings.Add("Text", bs, "CurrentAuction.BuyItNow", false,
-                  DataSourceUpdateMode.OnPropertyChanged);
+            //lblBIN.DataBindings.Add("Text", bs, "CurrentAuction.BuyItNow", false,
+            //      DataSourceUpdateMode.OnPropertyChanged);
 
             lbAuctions.DataSource = AppSettings.Instance.AllAuctions;
             lbAuctions.DisplayMember = "Domain";
@@ -194,12 +208,12 @@ namespace AuctionSniper
             dgvResults.DataSource = AppSettings.Instance.MyAuctions;
             dgvResults.VirtualMode = true;
             dgvResults.Columns["AuctionRef"].Visible = false;
-            dgvResults.Columns["Valuation"].Visible = false;
-            dgvResults.Columns["MinOffer"].Visible = false;
-            dgvResults.Columns["BuyItNow"].Visible = false;
-            dgvResults.Columns["Bids"].Visible = false;
-            dgvResults.Columns["Price"].Visible = false;
-            dgvResults.Columns["Traffic"].Visible = false;
+            //dgvResults.Columns["Valuation"].Visible = false;
+            //dgvResults.Columns["MinOffer"].Visible = false;
+            //dgvResults.Columns["BuyItNow"].Visible = false;
+            //dgvResults.Columns["Bids"].Visible = false;
+            //dgvResults.Columns["Price"].Visible = false;
+            //dgvResults.Columns["Traffic"].Visible = false;
 
         }
 
@@ -269,7 +283,7 @@ namespace AuctionSniper
             var th = new Thread(() =>
             {
                 UpdateProgress("Searching..");
-                var auctions = AppSettings.Instance.GoDaddy.Search(tbSearch.Text.Replace(" ", ","));
+                var auctions = AppSettings.Instance.GoDaddy.Search(tbSearch.Text.Replace(" ", ","), true);
                 Invoke(new MethodInvoker(delegate()
                 {
                     if (auctions.ToList().Count > 0)
@@ -411,8 +425,8 @@ namespace AuctionSniper
         {
             //AppSettings.Instance.GoDaddy.PlaceBid(AppSettings.Instance.CurrentAuction.AuctionRef, "12");
 
-            var bid = GoDaddy.TryParse_INT(tbBidValue.Text);
-            if (GoDaddy.TryParse_INT(tbBidValue.Text) > 0)
+            var bid = AppSettings.Instance.GoDaddy.TextModifier.TryParse_INT(tbBidValue.Text);
+            if (AppSettings.Instance.GoDaddy.TextModifier.TryParse_INT(tbBidValue.Text) > 0)
             {
                 var th = new Thread(() =>
                 {
@@ -493,13 +507,13 @@ namespace AuctionSniper
                         {
                             UpdateProgress("Processing Bid..");
                             Thread.Sleep(2000);
-                            //GoDaddyAuctions.Instance.PlaceBid(auction.AuctionRef, auction.MyBid.ToString());
+                            AppSettings.Instance.GoDaddy.PlaceBid(auction);
                             this.Invoke(new MethodInvoker(delegate()
                             {
                                 AppSettings.Instance.MyAuctions.Remove(auction);
                                 SaveMyBids();
                             }));
-                            UpdateProgress("Bids placed on " + auction.Domain);
+                            UpdateProgress("Bids placed on " + auction.DomainName);
                         }
                     }
                     this.Invoke(new MethodInvoker(delegate()
@@ -516,8 +530,12 @@ namespace AuctionSniper
 
         private void btnSet_Click(object sender, EventArgs e)
         {
-            Settings.Default.SingleMaxBid = rbSungleMaxbid.Checked;
-            Settings.Default.Save();
+            SystemRepository.SaveGodaddyAccount(new GoDaddyAccount
+            {
+                AccountId = Guid.NewGuid(),
+                Username = tbUsername.Text, Password = tbPassword.Text,
+                UserID = AppSettings.Instance.LiveUserAccount.AccountID
+            });
             UpdateProgress("Details Updated..");
             Application.Restart();
         }

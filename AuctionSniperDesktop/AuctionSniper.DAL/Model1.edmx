@@ -1,0 +1,428 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alerts">
+          <Key>
+            <PropertyRef Name="AlertID" />
+          </Key>
+          <Property Name="AlertID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="800" Nullable="false" />
+          <Property Name="TriggerTime" Type="datetime" Nullable="false" />
+          <Property Name="Processed" Type="bit" Nullable="false" />
+          <Property Name="AuctionID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Custom" Type="bit" Nullable="false" />
+          <Property Name="AlertType" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AuctionHistory">
+          <Key>
+            <PropertyRef Name="HistoryID" />
+          </Key>
+          <Property Name="HistoryID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="AuctionLink" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Auctions">
+          <Key>
+            <PropertyRef Name="AuctionID" />
+          </Key>
+          <Property Name="AuctionID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DomainName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="AuctionRef" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="BidCount" Type="int" Nullable="false" />
+          <Property Name="Traffic" Type="int" Nullable="false" />
+          <Property Name="Valuation" Type="int" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+          <Property Name="MinBid" Type="int" Nullable="false" />
+          <Property Name="MinOffer" Type="int" Nullable="false" />
+          <Property Name="BuyItNow" Type="int" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="EstimateEndDate" Type="datetime" />
+          <Property Name="AccountID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="100" />
+          <Property Name="MyBid" Type="int" />
+          <Property Name="Processed" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GoDaddyAccount">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="GoDaddyUsername" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="GoDaddyPassword" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Verified" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SystemConfig">
+          <Key>
+            <PropertyRef Name="PropertyID" />
+          </Key>
+          <Property Name="PropertyID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ReceiveEmails" Type="bit" Nullable="false" />
+          <Property Name="AccessLevel" Type="int" Nullable="false" />
+          <Property Name="UseAccountForSearch" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AuctionHistory_Auction">
+          <End Role="Auctions" Type="Self.Auctions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AuctionHistory" Type="Self.AuctionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auctions">
+              <PropertyRef Name="AuctionID" />
+            </Principal>
+            <Dependent Role="AuctionHistory">
+              <PropertyRef Name="AuctionLink" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Auctions_GoDaddyAccount">
+          <End Role="GoDaddyAccount" Type="Self.GoDaddyAccount" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Auctions" Type="Self.Auctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoDaddyAccount">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Auctions">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Alerts_dbo_Auctions_AuctionID">
+          <End Role="Auctions" Type="Self.Auctions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Alerts" Type="Self.Alerts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auctions">
+              <PropertyRef Name="AuctionID" />
+            </Principal>
+            <Dependent Role="Alerts">
+              <PropertyRef Name="AuctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GoDaddyAccount_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="GoDaddyAccount" Type="Self.GoDaddyAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="GoDaddyAccount">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1ModelStoreContainer">
+          <EntitySet Name="Alerts" EntityType="Self.Alerts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuctionHistory" EntityType="Self.AuctionHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Auctions" EntityType="Self.Auctions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GoDaddyAccount" EntityType="Self.GoDaddyAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemConfig" EntityType="Self.SystemConfig" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AuctionHistory_Auction" Association="Self.FK_AuctionHistory_Auction">
+            <End Role="Auctions" EntitySet="Auctions" />
+            <End Role="AuctionHistory" EntitySet="AuctionHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Auctions_GoDaddyAccount" Association="Self.FK_Auctions_GoDaddyAccount">
+            <End Role="GoDaddyAccount" EntitySet="GoDaddyAccount" />
+            <End Role="Auctions" EntitySet="Auctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Alerts_dbo_Auctions_AuctionID" Association="Self.FK_dbo_Alerts_dbo_Auctions_AuctionID">
+            <End Role="Auctions" EntitySet="Auctions" />
+            <End Role="Alerts" EntitySet="Alerts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoDaddyAccount_Users" Association="Self.FK_GoDaddyAccount_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="GoDaddyAccount" EntitySet="GoDaddyAccount" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Auctions">
+          <Key>
+            <PropertyRef Name="AuctionID" />
+          </Key>
+          <Property Name="AuctionID" Type="Guid" Nullable="false" />
+          <Property Name="DomainName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AuctionRef" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BidCount" Type="Int32" Nullable="false" />
+          <Property Name="Traffic" Type="Int32" Nullable="false" />
+          <Property Name="Valuation" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <Property Name="MinBid" Type="Int32" Nullable="false" />
+          <Property Name="MinOffer" Type="Int32" Nullable="false" />
+          <Property Name="BuyItNow" Type="Int32" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EstimateEndDate" Type="DateTime" Precision="3" />
+          <Property Name="AccountID" Type="Guid" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MyBid" Type="Int32" />
+          <Property Name="Processed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="GoDaddyAccount" Relationship="Self.FK_Auctions_GoDaddyAccount" FromRole="Auctions" ToRole="GoDaddyAccount" />
+          <NavigationProperty Name="AuctionHistory" Relationship="Database1Model.FK_AuctionHistory_Auction" FromRole="Auctions" ToRole="AuctionHistory" />
+          <NavigationProperty Name="Alerts" Relationship="Database1Model.FK_dbo_Alerts_dbo_Auctions_AuctionID" FromRole="Auctions" ToRole="Alerts" />
+        </EntityType>
+        <EntityType Name="GoDaddyAccount">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="Guid" Nullable="false" />
+          <Property Name="GoDaddyUsername" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GoDaddyPassword" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserID" Type="Guid" Nullable="false" />
+          <Property Name="Verified" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Auctions" Relationship="Self.FK_Auctions_GoDaddyAccount" FromRole="GoDaddyAccount" ToRole="Auctions" />
+          <NavigationProperty Name="Users" Relationship="Database1Model.FK_GoDaddyAccount_Users" FromRole="GoDaddyAccount" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="SystemConfig">
+          <Key>
+            <PropertyRef Name="PropertyID" />
+          </Key>
+          <Property Name="PropertyID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Guid" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ReceiveEmails" Type="Boolean" Nullable="false" />
+          <Property Name="AccessLevel" Type="Int32" Nullable="false" />
+          <Property Name="UseAccountForSearch" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="GoDaddyAccount" Relationship="Database1Model.FK_GoDaddyAccount_Users" FromRole="Users" ToRole="GoDaddyAccount" />
+        </EntityType>
+        <Association Name="FK_Auctions_GoDaddyAccount">
+          <End Role="GoDaddyAccount" Type="Self.GoDaddyAccount" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Auctions" Type="Self.Auctions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GoDaddyAccount">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Auctions">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ASEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Auctions" EntityType="Self.Auctions" />
+          <EntitySet Name="GoDaddyAccount" EntityType="Self.GoDaddyAccount" />
+          <EntitySet Name="SystemConfig" EntityType="Self.SystemConfig" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Auctions_GoDaddyAccount" Association="Self.FK_Auctions_GoDaddyAccount">
+            <End Role="GoDaddyAccount" EntitySet="GoDaddyAccount" />
+            <End Role="Auctions" EntitySet="Auctions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GoDaddyAccount_Users" Association="Database1Model.FK_GoDaddyAccount_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="GoDaddyAccount" EntitySet="GoDaddyAccount" />
+          </AssociationSet>
+          <EntitySet Name="AuctionHistory" EntityType="Database1Model.AuctionHistory" />
+          <AssociationSet Name="FK_AuctionHistory_Auction" Association="Database1Model.FK_AuctionHistory_Auction">
+            <End Role="Auctions" EntitySet="Auctions" />
+            <End Role="AuctionHistory" EntitySet="AuctionHistory" />
+          </AssociationSet>
+          <EntitySet Name="Alerts" EntityType="Database1Model.Alerts" />
+          <AssociationSet Name="FK_dbo_Alerts_dbo_Auctions_AuctionID" Association="Database1Model.FK_dbo_Alerts_dbo_Auctions_AuctionID">
+            <End Role="Auctions" EntitySet="Auctions" />
+            <End Role="Alerts" EntitySet="Alerts" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_GoDaddyAccount_Users">
+          <End Type="Database1Model.Users" Role="Users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Database1Model.GoDaddyAccount" Role="GoDaddyAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="GoDaddyAccount">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AuctionHistory">
+          <Key>
+            <PropertyRef Name="HistoryID" />
+          </Key>
+          <Property Name="HistoryID" Type="Guid" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AuctionLink" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Auctions" Relationship="Database1Model.FK_AuctionHistory_Auction" FromRole="AuctionHistory" ToRole="Auctions" />
+        </EntityType>
+        <Association Name="FK_AuctionHistory_Auction">
+          <End Type="Database1Model.Auctions" Role="Auctions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Database1Model.AuctionHistory" Role="AuctionHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auctions">
+              <PropertyRef Name="AuctionID" />
+            </Principal>
+            <Dependent Role="AuctionHistory">
+              <PropertyRef Name="AuctionLink" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Alerts">
+          <Key>
+            <PropertyRef Name="AlertID" />
+          </Key>
+          <Property Name="AlertID" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="800" FixedLength="false" Unicode="true" />
+          <Property Name="TriggerTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Processed" Type="Boolean" Nullable="false" />
+          <Property Name="AuctionID" Type="Guid" Nullable="false" />
+          <Property Name="Custom" Type="Boolean" Nullable="false" />
+          <Property Name="AlertType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Auctions" Relationship="Database1Model.FK_dbo_Alerts_dbo_Auctions_AuctionID" FromRole="Alerts" ToRole="Auctions" />
+        </EntityType>
+        <Association Name="FK_dbo_Alerts_dbo_Auctions_AuctionID">
+          <End Type="Database1Model.Auctions" Role="Auctions" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Database1Model.Alerts" Role="Alerts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auctions">
+              <PropertyRef Name="AuctionID" />
+            </Principal>
+            <Dependent Role="Alerts">
+              <PropertyRef Name="AuctionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="ASEntities">
+          <EntitySetMapping Name="Auctions">
+            <EntityTypeMapping TypeName="Database1Model.Auctions">
+              <MappingFragment StoreEntitySet="Auctions">
+                <ScalarProperty Name="AuctionID" ColumnName="AuctionID" />
+                <ScalarProperty Name="DomainName" ColumnName="DomainName" />
+                <ScalarProperty Name="AuctionRef" ColumnName="AuctionRef" />
+                <ScalarProperty Name="BidCount" ColumnName="BidCount" />
+                <ScalarProperty Name="Traffic" ColumnName="Traffic" />
+                <ScalarProperty Name="Valuation" ColumnName="Valuation" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="MinBid" ColumnName="MinBid" />
+                <ScalarProperty Name="MinOffer" ColumnName="MinOffer" />
+                <ScalarProperty Name="BuyItNow" ColumnName="BuyItNow" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="EstimateEndDate" ColumnName="EstimateEndDate" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="MyBid" ColumnName="MyBid" />
+                <ScalarProperty Name="Processed" ColumnName="Processed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GoDaddyAccount">
+            <EntityTypeMapping TypeName="Database1Model.GoDaddyAccount">
+              <MappingFragment StoreEntitySet="GoDaddyAccount">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="GoDaddyUsername" ColumnName="GoDaddyUsername" />
+                <ScalarProperty Name="GoDaddyPassword" ColumnName="GoDaddyPassword" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Verified" ColumnName="Verified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemConfig">
+            <EntityTypeMapping TypeName="Database1Model.SystemConfig">
+              <MappingFragment StoreEntitySet="SystemConfig">
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Database1Model.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ReceiveEmails" ColumnName="ReceiveEmails" />
+                <ScalarProperty Name="AccessLevel" ColumnName="AccessLevel" />
+                <ScalarProperty Name="UseAccountForSearch" ColumnName="UseAccountForSearch" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuctionHistory">
+            <EntityTypeMapping TypeName="Database1Model.AuctionHistory">
+              <MappingFragment StoreEntitySet="AuctionHistory">
+                <ScalarProperty Name="AuctionLink" ColumnName="AuctionLink" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="HistoryID" ColumnName="HistoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Alerts">
+            <EntityTypeMapping TypeName="Database1Model.Alerts">
+              <MappingFragment StoreEntitySet="Alerts">
+                <ScalarProperty Name="AlertType" ColumnName="AlertType" />
+                <ScalarProperty Name="Custom" ColumnName="Custom" />
+                <ScalarProperty Name="AuctionID" ColumnName="AuctionID" />
+                <ScalarProperty Name="Processed" ColumnName="Processed" />
+                <ScalarProperty Name="TriggerTime" ColumnName="TriggerTime" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AlertID" ColumnName="AlertID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

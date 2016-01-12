@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSniperDesktop", "AuctionSniperDesktop\AuctionSniperDesktop.csproj", "{CF7B467A-2185-4F71-A071-ADE635906E15}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSniper", "..\AuctionSniper\AuctionSniper.csproj", "{C65D0523-5793-423E-BF92-A3B2A3EC735F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASDesktop", "ASDesktop\ASDesktop.csproj", "{E757E2BB-D169-4C34-8287-32AA726B663C}"
@@ -17,6 +15,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAS.DAL", "..\..\DASService
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAS.Domain", "..\..\DASService\AuctionSniper\DAS.Domain\DAS.Domain.csproj", "{E21F7956-C2BD-43CA-815E-E4967F840D69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSniper.Domain", "AuctionSniper.Domain\AuctionSniper.Domain.csproj", "{9EE900B3-331D-429F-AC91-F32D2F195892}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSniper.DAL", "AuctionSniper.DAL\AuctionSniper.DAL.csproj", "{FCB59B8C-585F-454A-B667-ADDF0B5D41AE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{AE04FBE7-A649-413C-BD31-9E1FED9E733A}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSniper.Dependency", "AuctionSniper.Dependency\AuctionSniper.Dependency.csproj", "{C5B185DC-6E26-4B70-860A-1F9CF8E77089}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,12 +34,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CF7B467A-2185-4F71-A071-ADE635906E15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF7B467A-2185-4F71-A071-ADE635906E15}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF7B467A-2185-4F71-A071-ADE635906E15}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CF7B467A-2185-4F71-A071-ADE635906E15}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF7B467A-2185-4F71-A071-ADE635906E15}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF7B467A-2185-4F71-A071-ADE635906E15}.Release|x86.ActiveCfg = Release|Any CPU
 		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C65D0523-5793-423E-BF92-A3B2A3EC735F}.Debug|x86.ActiveCfg = Debug|x86
@@ -69,6 +72,24 @@ Global
 		{E21F7956-C2BD-43CA-815E-E4967F840D69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E21F7956-C2BD-43CA-815E-E4967F840D69}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E21F7956-C2BD-43CA-815E-E4967F840D69}.Release|x86.ActiveCfg = Release|Any CPU
+		{9EE900B3-331D-429F-AC91-F32D2F195892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EE900B3-331D-429F-AC91-F32D2F195892}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EE900B3-331D-429F-AC91-F32D2F195892}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9EE900B3-331D-429F-AC91-F32D2F195892}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EE900B3-331D-429F-AC91-F32D2F195892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EE900B3-331D-429F-AC91-F32D2F195892}.Release|x86.ActiveCfg = Release|Any CPU
+		{FCB59B8C-585F-454A-B667-ADDF0B5D41AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCB59B8C-585F-454A-B667-ADDF0B5D41AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCB59B8C-585F-454A-B667-ADDF0B5D41AE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FCB59B8C-585F-454A-B667-ADDF0B5D41AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCB59B8C-585F-454A-B667-ADDF0B5D41AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCB59B8C-585F-454A-B667-ADDF0B5D41AE}.Release|x86.ActiveCfg = Release|Any CPU
+		{C5B185DC-6E26-4B70-860A-1F9CF8E77089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5B185DC-6E26-4B70-860A-1F9CF8E77089}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5B185DC-6E26-4B70-860A-1F9CF8E77089}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C5B185DC-6E26-4B70-860A-1F9CF8E77089}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5B185DC-6E26-4B70-860A-1F9CF8E77089}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5B185DC-6E26-4B70-860A-1F9CF8E77089}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

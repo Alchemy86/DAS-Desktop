@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Diagnostics;
+using AuctionSniper.Business;
 using AuctionSniper.Business.DataAccess;
+using AuctionSniper.DAL.Repository;
+using DAS.Domain;
+using DAS.Domain.Users;
+using Ninject;
 
 namespace AuctionSniper.UI
 {
     public partial class Login : Form
     {
         private bool storeDetails = false;
+        private IKernel Kernal;
+        private ISystemRepository SystemRepository;
 
-        public Login()
+        public Login(IKernel kernal)
         {
             this.SuspendLayout();
             // 
@@ -19,6 +26,8 @@ namespace AuctionSniper.UI
             this.MinimizeBox = false;
             this.Name = "Login";
             this.ResumeLayout(false);
+            Kernal = kernal;
+            SystemRepository = Kernal.Get<SystemRepository>();
 
             InitializeComponent();
             tbUsername.Text = Properties.Settings.Default.sStoredUsername;
@@ -50,7 +59,13 @@ namespace AuctionSniper.UI
                 //AuctionSniper.Business.DataAccess.DBHelper.Login(tbUsername.Text, tbPassword.Text)
                 if (DBHelper.Login(tbUsername.Text, tbPassword.Text, "Auction Sniper"))
                 {
-                    this.DialogResult = System.Windows.Forms.DialogResult.OK;
+                    this.DialogResult = DialogResult.OK;
+                    AppSettings.Instance.LiveUserAccount = SystemRepository.SaveAccount(new User
+                    {
+                        AccountID = Guid.NewGuid(),
+                        Password = tbPassword.Text,
+                        Username = tbUsername.Text
+                    });
                     if (storeDetails)
                     {
                         Properties.Settings.Default.sStoredUsername = tbUsername.Text;

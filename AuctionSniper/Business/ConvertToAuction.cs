@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ASEntityFramework;
-using LunchboxSource.Business.SiteObject.GoDaddy;
+using DAS.Domain.GoDaddy;
 
 namespace AuctionSniper.Business
 {
@@ -15,18 +14,12 @@ namespace AuctionSniper.Business
             {
                 var auction = new Auction();
                 auction.AuctionRef = auc.AuctionRef;
-                auction.Bids = auc.BidCount;
-                auction.BuyItNow = auc.BuyItNow;
-                auction.Domain = auc.DomainName;
-                auction.EndDate = auc.EndDate;
-                auction.EstimateEndDate = (DateTime)auc.EstimateEndDate;
                 auction.MinBid = auc.MinBid;
-                auction.MinOffer = auc.MinOffer;
+                auction.DomainName = auc.DomainName;
+                auction.EndDate = auc.EndDate;
+                auction.EndDate = (DateTime)auc.EndDate;
+                auction.MinBid = auc.MinBid;
                 auction.MyBid = (int)auc.MyBid;
-                auction.Price = auc.Price;
-                auction.Status = auc.Status;
-                auction.Traffic = auc.Traffic;
-                auction.Valuation = auc.Valuation;
                 auctions.Add(auction);
             }
 

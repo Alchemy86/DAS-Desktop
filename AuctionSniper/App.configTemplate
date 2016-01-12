@@ -1,67 +1,82 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <configuration>
-    <configSections>
-        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-            <section name="AuctionSniper.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
-        </sectionGroup>
-        <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-            <section name="AuctionSniper.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
-        </sectionGroup>
-    </configSections>
-    <startup> 
-        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5" />
-    </startup>
-    <userSettings>
-        <AuctionSniper.Properties.Settings>
-            <setting name="BidsFile" serializeAs="String">
-                <value>MyBids.as</value>
-            </setting>
-            <setting name="BidTime" serializeAs="String">
-                <value>20</value>
-            </setting>
-            <setting name="Username" serializeAs="String">
-                <value />
-            </setting>
-            <setting name="Password" serializeAs="String">
-                <value />
-            </setting>
-            <setting name="sStoredUsername" serializeAs="String">
-                <value />
-            </setting>
-            <setting name="sStoredPassword" serializeAs="String">
-                <value />
-            </setting>
-            <setting name="MySQLConn" serializeAs="String">
-                <value />
-            </setting>
-            <setting name="TimeDifference" serializeAs="String">
-                <value>0</value>
-            </setting>
-            <setting name="SingleMaxBid" serializeAs="String">
-                <value>True</value>
-            </setting>
-            <setting name="StaggerBids" serializeAs="String">
-                <value>False</value>
-            </setting>
-        </AuctionSniper.Properties.Settings>
-    </userSettings>
-    <applicationSettings>
-        <AuctionSniper.Properties.Settings>
-            <setting name="AuctionSniper_domainauctionsniperAPI_LunchboxCode_API" serializeAs="String">
-                <value>http://lunchboxcode.com/service/php/service.php</value>
-            </setting>
-        </AuctionSniper.Properties.Settings>
-    </applicationSettings>
+  <configSections>
+    <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <section name="AuctionSniper.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+    </sectionGroup>
+    <sectionGroup name="applicationSettings" type="System.Configuration.ApplicationSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <section name="AuctionSniper.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+    </sectionGroup>
+    <!-- For more information on Entity Framework configuration, visit http://go.microsoft.com/fwlink/?LinkID=237468 -->
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+  </configSections>
+  <connectionStrings>
+    <add name="ASEntities" connectionString="metadata=res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=(LocalDB)\v11.0;attachdbfilename=|DataDirectory|\Database1.mdf;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+  </connectionStrings>
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5" />
+  </startup>
+  <userSettings>
+    <AuctionSniper.Properties.Settings>
+      <setting name="BidsFile" serializeAs="String">
+        <value>MyBids.as</value>
+      </setting>
+      <setting name="BidTime" serializeAs="String">
+        <value>20</value>
+      </setting>
+      <setting name="Username" serializeAs="String">
+        <value />
+      </setting>
+      <setting name="Password" serializeAs="String">
+        <value />
+      </setting>
+      <setting name="sStoredUsername" serializeAs="String">
+        <value />
+      </setting>
+      <setting name="sStoredPassword" serializeAs="String">
+        <value />
+      </setting>
+      <setting name="MySQLConn" serializeAs="String">
+        <value />
+      </setting>
+      <setting name="TimeDifference" serializeAs="String">
+        <value>0</value>
+      </setting>
+      <setting name="SingleMaxBid" serializeAs="String">
+        <value>True</value>
+      </setting>
+      <setting name="StaggerBids" serializeAs="String">
+        <value>False</value>
+      </setting>
+    </AuctionSniper.Properties.Settings>
+  </userSettings>
+  <applicationSettings>
+    <AuctionSniper.Properties.Settings>
+      <setting name="AuctionSniper_domainauctionsniperAPI_LunchboxCode_API" serializeAs="String">
+        <value>http://lunchboxcode.com/service/php/service.php</value>
+      </setting>
+    </AuctionSniper.Properties.Settings>
+  </applicationSettings>
   <runtime>
     <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
       <dependentAssembly>
         <assemblyIdentity name="Fizzler" publicKeyToken="4ebff4844e382110" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-1.0.0.0" newVersion="1.0.0.0" />
+        <bindingRedirect oldVersion="0.0.0.0-0.1.15619.0" newVersion="0.1.15619.0" />
       </dependentAssembly>
       <dependentAssembly>
         <assemblyIdentity name="HtmlAgilityPack" publicKeyToken="bd319b19eaf3b43a" culture="neutral" />
-        <bindingRedirect oldVersion="0.0.0.0-1.4.0.0" newVersion="1.4.0.0" />
+        <bindingRedirect oldVersion="0.0.0.0-1.4.9.0" newVersion="1.4.9.0" />
       </dependentAssembly>
     </assemblyBinding>
   </runtime>
+  <entityFramework>
+    <defaultConnectionFactory type="System.Data.Entity.Infrastructure.LocalDbConnectionFactory, EntityFramework">
+      <parameters>
+        <parameter value="mssqllocaldb" />
+      </parameters>
+    </defaultConnectionFactory>
+    <providers>
+      <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />
+    </providers>
+  </entityFramework>
 </configuration>
