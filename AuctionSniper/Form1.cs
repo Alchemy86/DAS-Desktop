@@ -10,13 +10,12 @@ using System.Xml.Serialization;
 using System.IO;
 using AuctionSniper.DAL.Repository;
 using AuctionSniper.Domain.Godaddy;
+using AuctionSniper.UI;
 using DAS.Domain;
 using DAS.Domain.GoDaddy;
 using DAS.Domain.GoDaddy.Users;
 using DAS.Domain.Users;
 using GoDaddy;
-using LunchboxSource.Business.UI;
-using Lunchboxweb.BaseFunctions;
 using Ninject;
 
 namespace AuctionSniper
@@ -47,9 +46,8 @@ namespace AuctionSniper
             UserDesktopRepository = Kernel.Get<UserDesktopRepository>();
 
             InitializeComponent();
-            AppSettings.Instance.SessionDetails =
-                UserRepository.GetSessionDetails(AppSettings.Instance.LiveUserAccount.Username);
-
+            var details = UserRepository.GetSessionDetails(AppSettings.Instance.LiveUserAccount.Username);
+            AppSettings.Instance.SessionDetails = details;
             AppSettings.Instance.GoDaddy = new GoDaddyAuctionSniper(AppSettings.Instance.SessionDetails.Username, Kernel.Get<IUserRepository>());
 
             LoadAuctions();
@@ -113,6 +111,7 @@ namespace AuctionSniper
 
                         foreach (var auction in LoadMyLocalBids())
                         {
+                            auction.GoDaddyAccount = AppSettings.Instance.SessionDetails.GoDaddyAccount;
                             if (auction.EndDate > GetPacificTime)
                             {
                                 AppSettings.Instance.MyAuctions.Add(auction);
@@ -149,10 +148,10 @@ namespace AuctionSniper
         {
             #region Splash Screen Load
             lblCountdown.Text = "";
-            toolStrip1.Renderer = new ToolStripRenderPro();
-            toolStrip2.Renderer = new ToolStripRenderPro();
-            toolStrip3.Renderer = new ToolStripRenderPro();
-            toolStrip4.Renderer = new ToolStripRenderPro();
+            //toolStrip1.Renderer = new ToolStripRenderPro();
+            //toolStrip2.Renderer = new ToolStripRenderPro();
+            //toolStrip3.Renderer = new ToolStripRenderPro();
+            //toolStrip4.Renderer = new ToolStripRenderPro();
             var sf = new SplashScreenForm(); // Splash Screen
             SplashScreen.UdpateStatusText("Loading Items...");
             SplashScreen.UdpateStatusTextWithStatus("Loading Defaults", TypeOfMessage.Success);
@@ -190,8 +189,8 @@ namespace AuctionSniper
             lblMinBid.DataBindings.Add("Text", bs, "CurrentAuction.MinBid", false,
                   DataSourceUpdateMode.OnPropertyChanged);
 
-            tbBidValue.DataBindings.Add("Text", bs, "CurrentAuction.MyBid", false,
-                  DataSourceUpdateMode.OnPropertyChanged);
+            //numMyBid.DataBindings.Add("Value", bs, "CurrentAuction.MyBid", false,
+            //      DataSourceUpdateMode.OnPropertyChanged);
 
             //lblMinOffer.DataBindings.Add("Text", bs, "CurrentAuction.MinOffer", false,
             //      DataSourceUpdateMode.OnPropertyChanged);
@@ -203,7 +202,7 @@ namespace AuctionSniper
             //      DataSourceUpdateMode.OnPropertyChanged);
 
             lbAuctions.DataSource = AppSettings.Instance.AllAuctions;
-            lbAuctions.DisplayMember = "Domain";
+            lbAuctions.DisplayMember = "DomainName";
 
             dgvResults.DataSource = AppSettings.Instance.MyAuctions;
             dgvResults.VirtualMode = true;
@@ -283,7 +282,7 @@ namespace AuctionSniper
             var th = new Thread(() =>
             {
                 UpdateProgress("Searching..");
-                var auctions = AppSettings.Instance.GoDaddy.Search(tbSearch.Text.Replace(" ", ","), true);
+                var auctions = AppSettings.Instance.GoDaddy.Search(tbSearch.Text.Replace(" ", ","), true, AppSettings.Instance.LiveUserAccount.AccountID);
                 Invoke(new MethodInvoker(delegate()
                 {
                     if (auctions.ToList().Count > 0)
@@ -310,6 +309,7 @@ namespace AuctionSniper
         private void CheckForBids()
         {
             var moo = Settings.Default.SingleMaxBid;
+            AppSettings.Instance.GoDaddy = new GoDaddyAuctionSniper(AppSettings.Instance.SessionDetails.Username, Kernel.Get<IUserRepository>());
             if (AppSettings.Instance.MyAuctions == null || AppSettings.Instance.MyAuctions.Count <= 0) return;
             timerBids.Stop();
             var th = new Thread(() =>
@@ -320,7 +320,7 @@ namespace AuctionSniper
                     var ts =
                         auction.EndDate.Subtract(GetPacificTime);
                     if (ts.TotalSeconds < Convert.ToInt32(Settings.Default.BidTime) &&
-                        (auction.MinBid < auction.MyBid || auction.MinBid == auction.MyBid) && ts.TotalSeconds > 0)
+                        ts.TotalSeconds > 0)
                     {
                         UpdateProgress("Processing Bid..");
                         var holdAuction = auction;
@@ -339,18 +339,19 @@ namespace AuctionSniper
                         }
                         else
                         {
-                            //AppSettings.Instance.GoDaddy.PlaceBid2(auction.AuctionRef, auction.MyBid);
+                            AppSettings.Instance.GoDaddy.PlaceBid(auction);
                         }
 
                         //GoDaddyAuctions.Instance.PlaceBid(auction.AuctionRef, auction.MyBid.ToString(CultureInfo.InvariantCulture));
                         Invoke(new MethodInvoker(delegate
                         {
-                            AppSettings.Instance.MyAuctions.Remove(auction);
-                            if (!Settings.Default.SingleMaxBid)
-                            {
-                                AppSettings.Instance.MyAuctions.Add(holdAuction);
-                            }
+                            //AppSettings.Instance.MyAuctions.Remove(auction);
+                            //if (!Settings.Default.SingleMaxBid)
+                            //{
+                            //    AppSettings.Instance.MyAuctions.Add(holdAuction);
+                            //}
                             SaveMyBids();
+                            SystemRepository.MarkAuctionAsProcess(auction.AuctionId);
                         }));
                         UpdateProgress("Bid placed on " + auction.DomainName);
                     }
@@ -393,6 +394,7 @@ namespace AuctionSniper
 
         private void SaveMyBids()
         {
+            
             var doc = new XmlDocument();
             var x = new XmlSerializer(AppSettings.Instance.MyAuctions.GetType());
             var sb = new System.Text.StringBuilder();
@@ -425,8 +427,8 @@ namespace AuctionSniper
         {
             //AppSettings.Instance.GoDaddy.PlaceBid(AppSettings.Instance.CurrentAuction.AuctionRef, "12");
 
-            var bid = AppSettings.Instance.GoDaddy.TextModifier.TryParse_INT(tbBidValue.Text);
-            if (AppSettings.Instance.GoDaddy.TextModifier.TryParse_INT(tbBidValue.Text) > 0)
+            var bid = (int)numMyBid.Value;
+            if (bid > 0)
             {
                 var th = new Thread(() =>
                 {
@@ -447,7 +449,12 @@ namespace AuctionSniper
                         Invoke(new MethodInvoker(
                             () => AppSettings.Instance.MyAuctions.Add(AppSettings.Instance.CurrentAuction)));
                     }
-                    SaveMyBids();
+                    AppSettings.Instance.CurrentAuction.GoDaddyAccount =
+                        AppSettings.Instance.SessionDetails.GoDaddyAccount;
+                    
+                    AppSettings.Instance.SessionDetails = UserRepository.GetSessionDetails(AppSettings.Instance.LiveUserAccount.Username);
+                    UserDesktopRepository.SaveAuction(AppSettings.Instance.CurrentAuction);
+                    UserRepository.AddHistoryRecord("Auction added to system", AppSettings.Instance.CurrentAuction.AuctionId);
                     UpdateProgress("Bid Added..");
                 });
                 th.SetApartmentState(ApartmentState.STA);
@@ -537,7 +544,9 @@ namespace AuctionSniper
                 UserID = AppSettings.Instance.LiveUserAccount.AccountID
             });
             UpdateProgress("Details Updated..");
-            Application.Restart();
+            AppSettings.Instance.SessionDetails =
+                UserRepository.GetSessionDetails(AppSettings.Instance.LiveUserAccount.Username);
+            //Application.Restart();
         }
 
         private void nudTimeDifference_ValueChanged(object sender, EventArgs e)
@@ -548,6 +557,21 @@ namespace AuctionSniper
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("http://www.lunchboxcode.com/contact-us/");
+        }
+
+        private void tsbAuctionHistory_Click(object sender, EventArgs e)
+        {
+            if (AppSettings.Instance.CurrentAuction != null)
+            {
+                var history = UserDesktopRepository.LoadAuctionHistory(AppSettings.Instance.CurrentAuction.AuctionId);
+                var his = new History(history);
+                his.ShowDialog();
+            }
+        }
+
+        private void dgvResults_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

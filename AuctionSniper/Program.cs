@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Configuration;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Runtime.ExceptionServices;
 using System.Threading;
 using System.Windows.Forms;
@@ -12,6 +15,19 @@ namespace AuctionSniper
 {
     static class Program
     {
+
+        private static void UpdateSetting()
+        {
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var connectionStringsSection = (ConnectionStringsSection)config.GetSection("connectionStrings");
+            var path =
+                //Data Source=(localdb)\v11.0;Initial Catalog=C:\USERS\dL\DESKTOP\DATABASE\MYSHOP.MDF;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=False
+                 @"metadata=res://*/Model1.csdl|res://*/Model1.ssdl|res://*/Model1.msl;provider=System.Data.SqlClient;provider connection string='data source=(LocalDB)\v11.0;attachdbfilename=" + Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database1.mdf") + ";integrated security=True;'";
+            connectionStringsSection.ConnectionStrings["ASEntities"].ConnectionString = path;
+            config.Save();
+            ConfigurationManager.RefreshSection("connectionStrings");
+        }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -23,6 +39,8 @@ namespace AuctionSniper
 
             try
             {
+
+                //UpdateSetting();
                 // Add the event handler for handling UI thread exceptions to the event.
                 Application.ThreadException += Application_ThreadException;
                 Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);

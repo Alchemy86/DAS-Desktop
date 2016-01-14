@@ -118,20 +118,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_GoDaddyAccount_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="GoDaddyAccount" Type="Self.GoDaddyAccount" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="GoDaddyAccount">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="Database1ModelStoreContainer">
           <EntitySet Name="Alerts" EntityType="Self.Alerts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AuctionHistory" EntityType="Self.AuctionHistory" Schema="dbo" store:Type="Tables" />
@@ -150,10 +136,6 @@
           <AssociationSet Name="FK_dbo_Alerts_dbo_Auctions_AuctionID" Association="Self.FK_dbo_Alerts_dbo_Auctions_AuctionID">
             <End Role="Auctions" EntitySet="Auctions" />
             <End Role="Alerts" EntitySet="Alerts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GoDaddyAccount_Users" Association="Self.FK_GoDaddyAccount_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="GoDaddyAccount" EntitySet="GoDaddyAccount" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -180,7 +162,6 @@
           <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MyBid" Type="Int32" />
           <Property Name="Processed" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="GoDaddyAccount" Relationship="Self.FK_Auctions_GoDaddyAccount" FromRole="Auctions" ToRole="GoDaddyAccount" />
           <NavigationProperty Name="AuctionHistory" Relationship="Database1Model.FK_AuctionHistory_Auction" FromRole="Auctions" ToRole="AuctionHistory" />
           <NavigationProperty Name="Alerts" Relationship="Database1Model.FK_dbo_Alerts_dbo_Auctions_AuctionID" FromRole="Auctions" ToRole="Alerts" />
         </EntityType>

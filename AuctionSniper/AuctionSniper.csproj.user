@@ -4,7 +4,7 @@
     <PublishUrlHistory>publish\</PublishUrlHistory>
     <InstallUrlHistory>http://www.lunchboxcode.com/software/LBAuctionSniper/|http://www.lunchboxcode.com/software/AuctionSniper/</InstallUrlHistory>
     <SupportUrlHistory />
-    <UpdateUrlHistory>http://www.lunchboxcode.com/software/AuctionSniper/</UpdateUrlHistory>
+    <UpdateUrlHistory>http://www.lunchboxcode.com/software/LBAuctionSniper/|http://www.lunchboxcode.com/software/AuctionSniper/</UpdateUrlHistory>
     <BootstrapperUrlHistory />
     <ErrorReportUrlHistory />
     <FallbackCulture>en-US</FallbackCulture>

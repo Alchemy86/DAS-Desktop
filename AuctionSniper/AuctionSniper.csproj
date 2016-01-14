@@ -29,7 +29,7 @@
     <PublisherName>LunchboxCode</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>26</ApplicationRevision>
+    <ApplicationRevision>37</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -90,16 +90,22 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AuctionSniperDLL">
       <HintPath>..\..\DASService\AuctionSniperDLL\AuctionSniperDLL\bin\Release\AuctionSniperDLL.dll</HintPath>
     </Reference>
     <Reference Include="Fizzler, Version=0.1.15619.0, Culture=neutral, PublicKeyToken=4ebff4844e382110, processorArchitecture=MSIL">
       <HintPath>..\AuctionSniperDesktop\packages\Fizzler.1.0.0\lib\net35\Fizzler.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Fizzler.Systems.HtmlAgilityPack, Version=0.1.15619.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\AuctionSniperDesktop\packages\Fizzler.Systems.HtmlAgilityPack.1.0.0\lib\net35\Fizzler.Systems.HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.4.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
@@ -119,6 +125,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web" />
@@ -138,16 +145,7 @@
     <Compile Include="Business\DataAccess\DBHelper.cs" />
     <Compile Include="Business\DataAccess\ObjectFactory.cs" />
     <Compile Include="Business\Encryption\EncryptionHelper.cs" />
-    <Compile Include="Business\Http\CookieWebClient.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Business\Http\HtmlParser.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Business\Http\HttpHelper.cs" />
     <Compile Include="Business\ManagedObject.cs" />
-    <Compile Include="Business\Obj\Site.cs" />
-    <Compile Include="Business\Obj\VpnFactory.cs" />
     <Compile Include="Business\Sites\Paypal.cs" />
     <Compile Include="Business\UI\SplashScreen\SplashScreen.cs" />
     <Compile Include="Business\UI\SplashScreen\SplashScreenForm.cs">
@@ -170,6 +168,12 @@
     </Compile>
     <Compile Include="UI\Error.Designer.cs">
       <DependentUpon>Error.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\History.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\History.Designer.cs">
+      <DependentUpon>History.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Login.cs">
       <SubType>Form</SubType>
@@ -197,9 +201,13 @@
     <EmbeddedResource Include="UI\Error.resx">
       <DependentUpon>Error.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\History.resx">
+      <DependentUpon>History.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Login.resx" />
     <None Include="AuctionSniper_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\AuctionSniper.Business.AppSettings.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -217,7 +225,9 @@
     <None Include="Web References\domainauctionsniperAPI\service.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\2013-01-10_0733.png" />
@@ -238,6 +248,12 @@
     <Content Include="auction-hammer-gavel.ico" />
     <None Include="Resources\GreenDot-small - Copy1.png" />
     <None Include="Resources\GreenDot-smal.png" />
+    <Content Include="Database1.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Database1_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\help.png" />
     <None Include="Resources\help1.png" />
     <None Include="Resources\avatar_99da279da051_96.png" />
@@ -302,14 +318,6 @@
       <Project>{e21f7956-c2bd-43ca-815e-e4967f840d69}</Project>
       <Name>DAS.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\DASService\AuctionSniper\GoDaddy\DAS.GoDaddy.csproj">
-      <Project>{7fdd8669-9620-4c5a-8db1-992738be0d95}</Project>
-      <Name>DAS.GoDaddy</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\DASService\AuctionSniper\Lunchboxweb\Lunchboxweb.csproj">
-      <Project>{fcb65216-825d-4c9b-8308-ae36debfdc38}</Project>
-      <Name>Lunchboxweb</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AuctionSniperDesktop\AuctionSniper.DAL\AuctionSniper.DAL.csproj">
       <Project>{fcb59b8c-585f-454a-b667-addf0b5d41ae}</Project>
       <Name>AuctionSniper.DAL</Name>
@@ -321,6 +329,14 @@
     <ProjectReference Include="..\AuctionSniperDesktop\AuctionSniper.Domain\AuctionSniper.Domain.csproj">
       <Project>{9EE900B3-331D-429F-AC91-F32D2F195892}</Project>
       <Name>AuctionSniper.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="GoDaddy\DAS.GoDaddy.csproj">
+      <Project>{7FDD8669-9620-4C5A-8DB1-992738BE0D95}</Project>
+      <Name>DAS.GoDaddy</Name>
+    </ProjectReference>
+    <ProjectReference Include="Lunchboxweb\Lunchboxweb.csproj">
+      <Project>{FCB65216-825D-4C9B-8308-AE36DEBFDC38}</Project>
+      <Name>Lunchboxweb</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

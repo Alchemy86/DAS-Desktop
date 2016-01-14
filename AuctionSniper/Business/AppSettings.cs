@@ -151,8 +151,6 @@ namespace AuctionSniper.Business
             }
         }
 
-        [XmlArray("MyAuctions")]
-        [XmlArrayItem("Auction", typeof(Auction))]
         public SortableBindingList<Auction> MyAuctions
         {
             get { return myAuctions; }

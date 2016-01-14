@@ -1,4 +1,6 @@
-﻿namespace AuctionSniper.DAL
+﻿using DAS.Domain.GoDaddy;
+
+namespace AuctionSniper.DAL
 {
     public partial class Auctions
     {
@@ -15,8 +17,22 @@
                 MinBid = MinBid,
                 MyBid = MyBid,
                 Processed = Processed,
-                GoDaddyAccount = GoDaddyAccount.ToDomainObject()
+                Bids = BidCount
             };
         }
+
+        public void FromDomainObject(Auction auction)
+        {
+            AccountID = auction.AccountId;
+            AuctionID = auction.AuctionId;
+            AuctionRef = auction.AuctionRef;
+            DomainName = auction.DomainName;
+            EndDate = auction.EndDate;
+            MinBid = auction.MinBid;
+            MyBid = auction.MyBid;
+            Processed = auction.Processed;
+            BidCount = auction.Bids;
+        }
+
     }
 }

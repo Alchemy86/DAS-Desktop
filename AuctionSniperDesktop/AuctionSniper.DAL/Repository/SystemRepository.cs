@@ -92,7 +92,7 @@ namespace AuctionSniper.DAL.Repository
         {
             var acc = new GoDaddyAccount();
             acc.FromDomainObject(account);
-            var existingAccount = Context.GoDaddyAccount.FirstOrDefault(x => x.UserID == account.UserID);
+            var existingAccount = Context.GoDaddyAccount.FirstOrDefault(x => x.GoDaddyUsername == account.Username);
             if (existingAccount != null)
             {
                 acc.AccountID = Context.Users.First(x=>x.Username == account.AccountUsername).UserID;

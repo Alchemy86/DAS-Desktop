@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using AuctionSniper.Domain.Godaddy;
 using DAS.Domain;
+using DAS.Domain.GoDaddy;
 
 namespace AuctionSniper.DAL.Repository
 {
@@ -12,9 +16,20 @@ namespace AuctionSniper.DAL.Repository
             
         }
 
-        public SortableBindingList<DAS.Domain.GoDaddy.Auction> LoadMyAuctions()
+        public List<DAS.Domain.Auctions.AuctionHistory> LoadAuctionHistory(Guid auctionID)
         {
-            var results = new SortableBindingList<DAS.Domain.GoDaddy.Auction>();
+            var results = new List<DAS.Domain.Auctions.AuctionHistory>();
+            var data = Context.AuctionHistory.Where(x => x.AuctionLink == auctionID);
+            foreach (var res in data)
+            {
+                results.Add(res.ToDomainObject());
+            }
+            return results.ToList();
+        }
+
+        public SortableBindingList<Auction> LoadMyAuctions()
+        {
+            var results = new SortableBindingList<Auction>();
             var items = Context.Auctions.AsQueryable();
             foreach (var res  in items)
             {
@@ -23,5 +38,27 @@ namespace AuctionSniper.DAL.Repository
 
             return results;
         }
+
+
+        public void SaveAuction(Auction auction)
+        {
+            var existingRecord = Context.Auctions.FirstOrDefault(x => x.AuctionRef == auction.AuctionRef);
+            if (existingRecord != null)
+            {
+                existingRecord.EndDate = auction.EndDate;
+                existingRecord.MinBid = auction.MinBid;
+                Context.Auctions.AddOrUpdate(existingRecord);
+            }
+            else
+            {
+                var auc = new Auctions();
+                auc.FromDomainObject(auction);
+                Context.Auctions.AddOrUpdate(auc);
+            }
+
+            Context.Save();
+
+        }
+
     }
 }

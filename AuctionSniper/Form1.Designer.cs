@@ -51,31 +51,22 @@
             this.btnDetails = new System.Windows.Forms.ToolStripButton();
             this.btnMyAuctions = new System.Windows.Forms.ToolStripButton();
             this.btnSettings = new System.Windows.Forms.ToolStripButton();
+            this.tsbAuctionHistory = new System.Windows.Forms.ToolStripButton();
             this.tablessControl1 = new TablessControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tablessControl2 = new TablessControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblMinOffer = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.numMyBid = new System.Windows.Forms.NumericUpDown();
             this.btnBid = new System.Windows.Forms.Button();
             this.lblBIN = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.tbBidValue = new System.Windows.Forms.TextBox();
-            this.lblPrice = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.lblMinBid = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.lblValuation = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lblTraffic = new System.Windows.Forms.Label();
-            this.lblBids = new System.Windows.Forms.Label();
             this.lblDomainName = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lblTime = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.dgvResults = new System.Windows.Forms.DataGridView();
@@ -128,6 +119,7 @@
             this.tablessControl2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMyBid)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
@@ -312,7 +304,8 @@
             this.toolStripSeparator1,
             this.btnDetails,
             this.btnMyAuctions,
-            this.btnSettings});
+            this.btnSettings,
+            this.tsbAuctionHistory});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(644, 25);
@@ -377,6 +370,17 @@
             this.btnSettings.Text = "Settings";
             this.btnSettings.Click += new System.EventHandler(this.btnSettings_Click);
             // 
+            // tsbAuctionHistory
+            // 
+            this.tsbAuctionHistory.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.tsbAuctionHistory.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbAuctionHistory.Image = global::AuctionSniper.Properties.Resources.courts;
+            this.tsbAuctionHistory.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAuctionHistory.Name = "tsbAuctionHistory";
+            this.tsbAuctionHistory.Size = new System.Drawing.Size(23, 22);
+            this.tsbAuctionHistory.Text = "Show Auction History";
+            this.tsbAuctionHistory.Click += new System.EventHandler(this.tsbAuctionHistory_Click);
+            // 
             // tablessControl1
             // 
             this.tablessControl1.Controls.Add(this.tabPage2);
@@ -423,25 +427,15 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.lblMinOffer);
-            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.numMyBid);
             this.groupBox1.Controls.Add(this.btnBid);
             this.groupBox1.Controls.Add(this.lblBIN);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.tbBidValue);
-            this.groupBox1.Controls.Add(this.lblPrice);
-            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.lblMinBid);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.lblValuation);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.lblTraffic);
-            this.groupBox1.Controls.Add(this.lblBids);
             this.groupBox1.Controls.Add(this.lblDomainName);
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
@@ -451,25 +445,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Details";
             // 
-            // lblMinOffer
+            // numMyBid
             // 
-            this.lblMinOffer.AutoSize = true;
-            this.lblMinOffer.Location = new System.Drawing.Point(164, 86);
-            this.lblMinOffer.Name = "lblMinOffer";
-            this.lblMinOffer.Size = new System.Drawing.Size(35, 13);
-            this.lblMinOffer.TabIndex = 16;
-            this.lblMinOffer.Text = "label4";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.ForeColor = System.Drawing.Color.Gray;
-            this.label12.Location = new System.Drawing.Point(125, 86);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(39, 13);
-            this.label12.TabIndex = 15;
-            this.label12.Text = "Offer:";
+            this.numMyBid.Location = new System.Drawing.Point(494, 24);
+            this.numMyBid.Maximum = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.numMyBid.Name = "numMyBid";
+            this.numMyBid.Size = new System.Drawing.Size(69, 20);
+            this.numMyBid.TabIndex = 15;
             // 
             // btnBid
             // 
@@ -516,40 +502,13 @@
             this.label8.Text = "BIN: $";
             this.label8.Visible = false;
             // 
-            // tbBidValue
-            // 
-            this.tbBidValue.Location = new System.Drawing.Point(488, 24);
-            this.tbBidValue.Name = "tbBidValue";
-            this.tbBidValue.Size = new System.Drawing.Size(78, 20);
-            this.tbBidValue.TabIndex = 1;
-            // 
-            // lblPrice
-            // 
-            this.lblPrice.AutoSize = true;
-            this.lblPrice.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrice.Location = new System.Drawing.Point(288, 22);
-            this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Size = new System.Drawing.Size(51, 20);
-            this.lblPrice.TabIndex = 12;
-            this.lblPrice.Text = "label4";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Gray;
-            this.label7.Location = new System.Drawing.Point(227, 22);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(61, 20);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Price: $";
-            // 
             // lblMinBid
             // 
             this.lblMinBid.AutoSize = true;
-            this.lblMinBid.Location = new System.Drawing.Point(62, 86);
+            this.lblMinBid.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMinBid.Location = new System.Drawing.Point(274, 28);
             this.lblMinBid.Name = "lblMinBid";
-            this.lblMinBid.Size = new System.Drawing.Size(35, 13);
+            this.lblMinBid.Size = new System.Drawing.Size(51, 20);
             this.lblMinBid.TabIndex = 10;
             this.lblMinBid.Text = "label4";
             // 
@@ -558,49 +517,11 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Gray;
-            this.label6.Location = new System.Drawing.Point(11, 86);
+            this.label6.Location = new System.Drawing.Point(215, 33);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(53, 13);
             this.label6.TabIndex = 9;
             this.label6.Text = "Min-Bid:";
-            // 
-            // lblValuation
-            // 
-            this.lblValuation.AutoSize = true;
-            this.lblValuation.Location = new System.Drawing.Point(62, 110);
-            this.lblValuation.Name = "lblValuation";
-            this.lblValuation.Size = new System.Drawing.Size(35, 13);
-            this.lblValuation.TabIndex = 8;
-            this.lblValuation.Text = "label4";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Gray;
-            this.label5.Location = new System.Drawing.Point(6, 110);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(64, 13);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Valuation:";
-            // 
-            // lblTraffic
-            // 
-            this.lblTraffic.AutoSize = true;
-            this.lblTraffic.Location = new System.Drawing.Point(164, 59);
-            this.lblTraffic.Name = "lblTraffic";
-            this.lblTraffic.Size = new System.Drawing.Size(35, 13);
-            this.lblTraffic.TabIndex = 6;
-            this.lblTraffic.Text = "label4";
-            // 
-            // lblBids
-            // 
-            this.lblBids.AutoSize = true;
-            this.lblBids.Location = new System.Drawing.Point(62, 59);
-            this.lblBids.Name = "lblBids";
-            this.lblBids.Size = new System.Drawing.Size(35, 13);
-            this.lblBids.TabIndex = 5;
-            this.lblBids.Text = "label4";
             // 
             // lblDomainName
             // 
@@ -615,9 +536,9 @@
             // 
             this.groupBox2.BackColor = System.Drawing.Color.White;
             this.groupBox2.Controls.Add(this.lblTime);
-            this.groupBox2.Location = new System.Drawing.Point(217, 66);
+            this.groupBox2.Location = new System.Drawing.Point(103, 66);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(393, 78);
+            this.groupBox2.Size = new System.Drawing.Size(507, 78);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Ending:";
@@ -626,33 +547,11 @@
             // 
             this.lblTime.AutoSize = true;
             this.lblTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTime.Location = new System.Drawing.Point(5, 20);
+            this.lblTime.Location = new System.Drawing.Point(38, 20);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(122, 44);
             this.lblTime.TabIndex = 0;
             this.lblTime.Text = "label4";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.Gray;
-            this.label3.Location = new System.Drawing.Point(118, 59);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(48, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Traffic:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Gray;
-            this.label2.Location = new System.Drawing.Point(26, 59);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Bids:";
             // 
             // label1
             // 
@@ -692,6 +591,7 @@
             this.dgvResults.Size = new System.Drawing.Size(622, 151);
             this.dgvResults.TabIndex = 1;
             this.dgvResults.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResults_CellClick);
+            this.dgvResults.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvResults_CellContentClick);
             this.dgvResults.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvResults_KeyDown);
             // 
             // tabPage5
@@ -992,6 +892,7 @@
             this.tabPage3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMyBid)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.tabPage4.ResumeLayout(false);
@@ -1023,25 +924,17 @@
         private System.Windows.Forms.ToolStripButton btnSearch;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.BindingSource appSettingsBindingSource;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblProgress;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ListBox lbAuctions;
-        private System.Windows.Forms.Label lblTraffic;
-        private System.Windows.Forms.Label lblBids;
         private System.Windows.Forms.Label lblDomainName;
-        private System.Windows.Forms.Label lblValuation;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblMinBid;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label lblPrice;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblBIN;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TabPage tabPage4;
@@ -1054,7 +947,6 @@
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.Button btnBid;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox tbBidValue;
         private System.Windows.Forms.SplitContainer splitContainer4;
         private System.Windows.Forms.Label lblCountdown;
         private System.Windows.Forms.ToolStrip toolStrip3;
@@ -1062,8 +954,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Label lblMinOffer;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.Timer timerBids;
         private System.Windows.Forms.Label lblChecked;
@@ -1084,6 +974,8 @@
         private System.Windows.Forms.ToolStripLabel txtVersion;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton rbSungleMaxbid;
+        private System.Windows.Forms.NumericUpDown numMyBid;
+        private System.Windows.Forms.ToolStripButton tsbAuctionHistory;
     }
 }
 

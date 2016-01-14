@@ -28,7 +28,12 @@ namespace AuctionSniper.DAL.Repository
 
         public GoDaddySessionModel GetSessionDetails(string username)
         {
+            var users = Context.Users;
+            var gd = Context.GoDaddyAccount;
+            var aucions = Context.Auctions;
+
             var details = Context.Users.Include("GoDaddyAccount").FirstOrDefault(x => x.Username == username);
+            var gdnotused = Context.GoDaddyAccount.ToList();
             if (details == null) return null;
             var gdAccount = details.GoDaddyAccount.FirstOrDefault() != null
                 ? details.GoDaddyAccount.First().ToDomainObject()

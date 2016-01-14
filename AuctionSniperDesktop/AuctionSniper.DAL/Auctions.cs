@@ -38,7 +38,6 @@ namespace AuctionSniper.DAL
         public Nullable<int> MyBid { get; set; }
         public bool Processed { get; set; }
     
-        public virtual GoDaddyAccount GoDaddyAccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AuctionHistory> AuctionHistory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

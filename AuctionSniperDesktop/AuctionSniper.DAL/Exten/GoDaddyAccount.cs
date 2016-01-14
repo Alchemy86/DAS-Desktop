@@ -25,6 +25,7 @@ namespace AuctionSniper.DAL
             GoDaddyUsername = account.Username;
             GoDaddyPassword = account.Password;
             Verified = account.Verified;
+            UserID = account.UserID;
         }
     }
 }

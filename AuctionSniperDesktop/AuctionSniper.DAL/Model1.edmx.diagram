@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="Database1Model.Auctions" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="Database1Model.GoDaddyAccount" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Database1Model.SystemConfig" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Database1Model.Users" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Users" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
         <AssociationConnector Association="Database1Model.FK_Auctions_GoDaddyAccount" ManuallyRouted="false" />
         <AssociationConnector Association="Database1Model.FK_GoDaddyAccount_Users" />
         <EntityTypeShape EntityType="Database1Model.AuctionHistory" Width="1.5" PointX="5.375" PointY="5.75" />
