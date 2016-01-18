@@ -93,6 +93,19 @@ namespace AuctionSniper
 
             var th = new Thread(() =>
             {
+                if (LoadMyLocalBids() != null)
+                {
+
+                    foreach (var auction in LoadMyLocalBids())
+                    {
+                        auction.GoDaddyAccount = AppSettings.Instance.SessionDetails.GoDaddyAccount;
+                        if (auction.EndDate > GetPacificTime)
+                        {
+                            AppSettings.Instance.MyAuctions.Add(auction);
+                        }
+
+                    }
+                }
                 UpdateProgress("Login required...");
                 if (AppSettings.Instance.SessionDetails.GoDaddyAccount == null)
                 {
@@ -106,19 +119,6 @@ namespace AuctionSniper
                         toolStripLabel6.BackgroundImage = Resources.GreenDot_smal;
                     }));
                     var auctions = new SortableBindingList<Auction>();
-                    if (LoadMyLocalBids() != null)
-                    {
-
-                        foreach (var auction in LoadMyLocalBids())
-                        {
-                            auction.GoDaddyAccount = AppSettings.Instance.SessionDetails.GoDaddyAccount;
-                            if (auction.EndDate > GetPacificTime)
-                            {
-                                AppSettings.Instance.MyAuctions.Add(auction);
-                            }
-
-                        }
-                    }
                     Invoke(new MethodInvoker(delegate
                     {
                         //AppSettings.Instance.MyAuctions.Clear();
@@ -537,6 +537,7 @@ namespace AuctionSniper
 
         private void btnSet_Click(object sender, EventArgs e)
         {
+            Settings.Default.Save();
             SystemRepository.SaveGodaddyAccount(new GoDaddyAccount
             {
                 AccountId = Guid.NewGuid(),

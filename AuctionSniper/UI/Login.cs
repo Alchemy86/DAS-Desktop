@@ -66,6 +66,7 @@ namespace AuctionSniper.UI
                         Password = tbPassword.Text,
                         Username = tbUsername.Text
                     });
+                    //MessageBox.Show(AppSettings.Instance.LiveUserAccount.AccountID.ToString());
                     if (storeDetails)
                     {
                         Properties.Settings.Default.sStoredUsername = tbUsername.Text;

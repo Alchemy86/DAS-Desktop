@@ -73,10 +73,8 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.rbSungleMaxbid = new System.Windows.Forms.RadioButton();
             this.label13 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.nudTimeDifference = new System.Windows.Forms.NumericUpDown();
             this.btnSet = new System.Windows.Forms.Button();
             this.lblPass = new System.Windows.Forms.Label();
             this.lblUser = new System.Windows.Forms.Label();
@@ -84,7 +82,6 @@
             this.tbUsername = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timerWB = new System.Windows.Forms.Timer(this.components);
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -95,6 +92,9 @@
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.txtVersion = new System.Windows.Forms.ToolStripLabel();
             this.appSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.rbSungleMaxbid = new System.Windows.Forms.RadioButton();
+            this.nudTimeDifference = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -125,10 +125,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).BeginInit();
             this.tabPage5.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTimeDifference)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.toolStrip4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.appSettingsBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimeDifference)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -637,19 +637,6 @@
             this.radioButton2.Text = "Stagger Min Bids";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
-            // rbSungleMaxbid
-            // 
-            this.rbSungleMaxbid.AutoSize = true;
-            this.rbSungleMaxbid.Checked = global::AuctionSniper.Properties.Settings.Default.SingleMaxBid;
-            this.rbSungleMaxbid.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::AuctionSniper.Properties.Settings.Default, "SingleMaxBid", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.rbSungleMaxbid.Location = new System.Drawing.Point(355, 99);
-            this.rbSungleMaxbid.Name = "rbSungleMaxbid";
-            this.rbSungleMaxbid.Size = new System.Drawing.Size(94, 17);
-            this.rbSungleMaxbid.TabIndex = 14;
-            this.rbSungleMaxbid.TabStop = true;
-            this.rbSungleMaxbid.Text = "Single Max bid";
-            this.rbSungleMaxbid.UseVisualStyleBackColor = true;
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -671,22 +658,6 @@
             this.label11.TabIndex = 12;
             this.label11.Text = "Time Difference:";
             this.label11.Visible = false;
-            // 
-            // nudTimeDifference
-            // 
-            this.nudTimeDifference.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::AuctionSniper.Properties.Settings.Default, "TimeDifference", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.nudTimeDifference.Location = new System.Drawing.Point(478, 30);
-            this.nudTimeDifference.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.nudTimeDifference.Name = "nudTimeDifference";
-            this.nudTimeDifference.Size = new System.Drawing.Size(81, 20);
-            this.nudTimeDifference.TabIndex = 11;
-            this.nudTimeDifference.Value = global::AuctionSniper.Properties.Settings.Default.TimeDifference;
-            this.nudTimeDifference.Visible = false;
-            this.nudTimeDifference.ValueChanged += new System.EventHandler(this.nudTimeDifference_ValueChanged);
             // 
             // btnSet
             // 
@@ -720,18 +691,22 @@
             // 
             // tbPassword
             // 
+            this.tbPassword.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AuctionSniper.Properties.Settings.Default, "GDPassword", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.tbPassword.Location = new System.Drawing.Point(85, 104);
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.PasswordChar = '*';
             this.tbPassword.Size = new System.Drawing.Size(150, 20);
             this.tbPassword.TabIndex = 4;
+            this.tbPassword.Text = global::AuctionSniper.Properties.Settings.Default.GDPassword;
             // 
             // tbUsername
             // 
+            this.tbUsername.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::AuctionSniper.Properties.Settings.Default, "GDUsername", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.tbUsername.Location = new System.Drawing.Point(85, 78);
             this.tbUsername.Name = "tbUsername";
             this.tbUsername.Size = new System.Drawing.Size(120, 20);
             this.tbUsername.TabIndex = 3;
+            this.tbUsername.Text = global::AuctionSniper.Properties.Settings.Default.GDUsername;
             // 
             // label10
             // 
@@ -752,26 +727,6 @@
             this.label9.Size = new System.Drawing.Size(22, 13);
             this.label9.TabIndex = 1;
             this.label9.Text = "Bid";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::AuctionSniper.Properties.Settings.Default, "BidTime", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.numericUpDown1.Location = new System.Drawing.Point(85, 30);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDown1.TabIndex = 0;
-            this.numericUpDown1.Value = global::AuctionSniper.Properties.Settings.Default.BidTime;
-            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // timer1
             // 
@@ -843,6 +798,55 @@
             // 
             this.appSettingsBindingSource.DataSource = typeof(AuctionSniper.Business.AppSettings);
             // 
+            // rbSungleMaxbid
+            // 
+            this.rbSungleMaxbid.AutoSize = true;
+            this.rbSungleMaxbid.Checked = global::AuctionSniper.Properties.Settings.Default.SingleMaxBid;
+            this.rbSungleMaxbid.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::AuctionSniper.Properties.Settings.Default, "SingleMaxBid", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.rbSungleMaxbid.Location = new System.Drawing.Point(355, 99);
+            this.rbSungleMaxbid.Name = "rbSungleMaxbid";
+            this.rbSungleMaxbid.Size = new System.Drawing.Size(94, 17);
+            this.rbSungleMaxbid.TabIndex = 14;
+            this.rbSungleMaxbid.TabStop = true;
+            this.rbSungleMaxbid.Text = "Single Max bid";
+            this.rbSungleMaxbid.UseVisualStyleBackColor = true;
+            // 
+            // nudTimeDifference
+            // 
+            this.nudTimeDifference.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::AuctionSniper.Properties.Settings.Default, "TimeDifference", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.nudTimeDifference.Location = new System.Drawing.Point(478, 30);
+            this.nudTimeDifference.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.nudTimeDifference.Name = "nudTimeDifference";
+            this.nudTimeDifference.Size = new System.Drawing.Size(81, 20);
+            this.nudTimeDifference.TabIndex = 11;
+            this.nudTimeDifference.Value = global::AuctionSniper.Properties.Settings.Default.TimeDifference;
+            this.nudTimeDifference.Visible = false;
+            this.nudTimeDifference.ValueChanged += new System.EventHandler(this.nudTimeDifference_ValueChanged);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DataBindings.Add(new System.Windows.Forms.Binding("Value", global::AuctionSniper.Properties.Settings.Default, "BidTime", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.numericUpDown1.Location = new System.Drawing.Point(85, 30);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown1.TabIndex = 0;
+            this.numericUpDown1.Value = global::AuctionSniper.Properties.Settings.Default.BidTime;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -900,11 +904,11 @@
             this.tabPage5.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudTimeDifference)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.toolStrip4.ResumeLayout(false);
             this.toolStrip4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.appSettingsBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTimeDifference)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }

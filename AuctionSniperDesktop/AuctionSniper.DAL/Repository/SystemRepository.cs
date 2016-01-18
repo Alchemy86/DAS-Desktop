@@ -91,6 +91,7 @@ namespace AuctionSniper.DAL.Repository
         public void SaveGodaddyAccount(DAS.Domain.GoDaddy.Users.GoDaddyAccount account)
         {
             var acc = new GoDaddyAccount();
+            var godaddy = Context.GoDaddyAccount.ToList();
             acc.FromDomainObject(account);
             var existingAccount = Context.GoDaddyAccount.FirstOrDefault(x => x.GoDaddyUsername == account.Username);
             if (existingAccount != null)
@@ -116,6 +117,7 @@ namespace AuctionSniper.DAL.Repository
 
         public DAS.Domain.Users.User SaveAccount(DAS.Domain.Users.User account)
         {
+            var existingAccountsd = Context.Users.ToList();
             var existingAccount = Context.Users.FirstOrDefault(x => x.Username == account.Username);
             if (existingAccount == null)
             {
@@ -130,9 +132,15 @@ namespace AuctionSniper.DAL.Repository
                 };
                 Context.Users.Add(newUser);
                 Context.Save();
+                return account;
             }
 
-            return account;
+            return new DAS.Domain.Users.User
+            {
+                AccountID = existingAccount.UserID,
+                Password = existingAccount.Password,
+                Username = existingAccount.Username
+            };
         }
     }
 }
