@@ -47,6 +47,16 @@ namespace AuctionSniper
 
             InitializeComponent();
             var details = UserRepository.GetSessionDetails(AppSettings.Instance.LiveUserAccount.Username);
+            if (details.GoDaddyAccount == null && !string.IsNullOrEmpty(Settings.Default.GDUsername))
+            {
+                details.GoDaddyAccount = new GoDaddyAccount()
+                {
+                    AccountId =  Guid.NewGuid(), AccountUsername = details.Username, Password = Settings.Default.GDPassword,
+                    Username = Settings.Default.GDUsername, UserID = AppSettings.Instance.LiveUserAccount.AccountID
+                };
+                SystemRepository.SaveGodaddyAccount(details.GoDaddyAccount);
+            }
+           
             AppSettings.Instance.SessionDetails = details;
             AppSettings.Instance.GoDaddy = new GoDaddyAuctionSniper(AppSettings.Instance.SessionDetails.Username, Kernel.Get<IUserRepository>());
 
@@ -324,23 +334,7 @@ namespace AuctionSniper
                     {
                         UpdateProgress("Processing Bid..");
                         var holdAuction = auction;
-                        if (!Settings.Default.SingleMaxBid)
-                        {
-                            UpdateProgress("Staggering Bid..");
-                            //holdAuction = AppSettings.Instance.GoDaddy.UpdateMinBid(auction);
-                            if (holdAuction.MyBid >= holdAuction.MinBid)
-                            {
-                                //AppSettings.Instance.GoDaddy.PlaceBid(auction.AuctionRef, holdAuction.MinBid);
-                            }
-                            else
-                            {
-                                UpdateProgress("Bid now too low for min bid..");
-                            }
-                        }
-                        else
-                        {
-                            AppSettings.Instance.GoDaddy.PlaceBid(auction);
-                        }
+                        AppSettings.Instance.GoDaddy.PlaceBid(auction);
 
                         //GoDaddyAuctions.Instance.PlaceBid(auction.AuctionRef, auction.MyBid.ToString(CultureInfo.InvariantCulture));
                         Invoke(new MethodInvoker(delegate

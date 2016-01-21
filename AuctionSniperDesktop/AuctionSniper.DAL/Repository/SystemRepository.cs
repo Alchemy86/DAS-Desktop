@@ -96,7 +96,7 @@ namespace AuctionSniper.DAL.Repository
             var existingAccount = Context.GoDaddyAccount.FirstOrDefault(x => x.GoDaddyUsername == account.Username);
             if (existingAccount != null)
             {
-                acc.AccountID = Context.Users.First(x=>x.Username == account.AccountUsername).UserID;
+                acc.AccountID = Context.Users.First(x=>x.Username == account.Username).UserID;
                 Context.GoDaddyAccount.AddOrUpdate(acc);
             }
             else

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Linq;
 using DAS.Domain;
 using DAS.Domain.DeathbyCapture;
@@ -35,10 +36,15 @@ namespace AuctionSniper.DAL.Repository
             var details = Context.Users.Include("GoDaddyAccount").FirstOrDefault(x => x.Username == username);
             var gdnotused = Context.GoDaddyAccount.ToList();
             if (details == null) return null;
-            var gdAccount = details.GoDaddyAccount.FirstOrDefault() != null
-                ? details.GoDaddyAccount.First().ToDomainObject()
-                : null;
-            return new GoDaddySessionModel(details.Username, details.Password, gdAccount, GetDeathByCaptureDetailsDetails());
+            var firstOrDefault = gdnotused.FirstOrDefault();
+            if (firstOrDefault != null)
+            {
+                var gdAccount = details.GoDaddyAccount.FirstOrDefault() != null
+                    ? details.GoDaddyAccount.First().ToDomainObject()
+                    : firstOrDefault.ToDomainObject();
+                return new GoDaddySessionModel(details.Username, details.Password, gdAccount, GetDeathByCaptureDetailsDetails());
+            }
+            return new GoDaddySessionModel(details.Username, details.Password, null, GetDeathByCaptureDetailsDetails());
         }
 
         public void LogError(string message, string type = "Error")
